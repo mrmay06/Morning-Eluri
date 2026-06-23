@@ -1,0 +1,8 @@
+{
+  "name": "Eluri - Morning Creature",
+  "description": "Nurture your digital relationship pet by reciprocating affection back to your partner's morning texts! Will your creature thrive, survive, or fade away?",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-mint-50: #f0fdf4;
+  --color-mint-100: #dcfce7;
+  --color-mint-500: #1b6b4f;
+  --color-mint-600: #12523b;
+  --color-mint-700: #0f402f;
+  
+  --color-peach-50: #fff5f5;
+  --color-peach-100: #ffd8ed;
+  --color-peach-300: #fdd0ea;
+  --color-peach-500: #e5bad3;
+  --color-peach-600: #765469;
+}
+
+@layer base {
+  body {
+    background-color: #f6f8fd;
+    font-family: var(--font-sans);
+    color: #111c2d;
+    overscroll-behavior-y: none;
+  }
+}
+
+/* Playful Console Aesthetics */
+.card-chunky {
+  background-color: #ffffff;
+  border: 2px solid #111c2d;
+  box-shadow: 4px 4px 0px 0px #111c2d;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.card-chunky:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px #111c2d;
+}
+
+.btn-chunky-primary {
+  background-color: #1b6b4f;
+  color: #ffffff;
+  border: 2px solid #111c2d;
+  box-shadow: 0px 4px 0px 0px #0c3627;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.1s ease;
+}
+
+.btn-chunky-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0px 1px 0px 0px #0c3627;
+}
+
+.btn-chunky-secondary {
+  background-color: #ffd8ed;
+  color: #111c2d;
+  border: 2px solid #111c2d;
+  box-shadow: 0px 4px 0px 0px #111c2d;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.1s ease;
+}
+
+.btn-chunky-secondary:active {
+  transform: translateY(3px);
+  box-shadow: 0px 1px 0px 0px #111c2d;
+}
+
+.btn-chunky-flat {
+  background-color: #ffffff;
+  color: #111c2d;
+  border: 2px solid #111c2d;
+  box-shadow: 0px 3px 0px 0px #111c2d;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: all 0.1s ease;
+}
+
+.btn-chunky-flat:active {
+  transform: translateY(2px);
+  box-shadow: 0px 1px 0px 0px #111c2d;
+}
+
+.input-well {
+  background-color: #f9fbfd;
+  border: 2px solid #111c2d;
+  box-shadow: inset 0px 2px 4px rgba(17, 28, 45, 0.08);
+  border-radius: 12px;
+}
+
+.input-well:focus-within {
+  background-color: #ffffff;
+  border-color: #1b6b4f;
+  outline: none;
+}
+
+.speech-bubble {
+  position: relative;
+  background-color: #ffffff;
+  border: 2px solid #111c2d;
+  border-radius: 16px;
+  padding: 12px 16px;
+}
+
+.speech-bubble-tail-down::after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background-color: #ffffff;
+  border-right: 2px solid #111c2d;
+  border-bottom: 2px solid #111c2d;
+}
+
+/* Animations */
+@keyframes pulse-heart {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+  animation: pulse-heart 0.8s infinite;
+}
+
+@keyframes shake-gentle {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px) rotate(-1deg); }
+  40% { transform: translateX(4px) rotate(1deg); }
+  60% { transform: translateX(-2px) rotate(-0.5deg); }
+  80% { transform: translateX(2px) rotate(0.5deg); }
+}
+
+.animate-shake {
+  animation: shake-gentle 0.5s ease-in-out;
+}
+
+@keyframes float-away {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+}
+
+.particle-float {
+  position: absolute;
+  pointer-events: none;
+  animation: float-away 1.5s ease-out forwards;
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
