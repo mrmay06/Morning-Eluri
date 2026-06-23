@@ -1,0 +1,50 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft desk shadow -->
+  <ellipse cx="64" cy="112" rx="38" ry="10" fill="#cbd5e1" opacity="0.8"/>
+  
+  <defs>
+    <!-- Gradient for fluffy sad body -->
+    <linearGradient id="bodyGradSad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd" />
+      <stop offset="100%" stop-color="#fbcfe8" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="1" flood-color="#111c2d" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Cute floppy feet -->
+  <ellipse cx="44" cy="108" rx="12" ry="8" fill="#64748b" stroke="#111c2d" stroke-width="4"/>
+  <ellipse cx="84" cy="108" rx="12" ry="8" fill="#64748b" stroke="#111c2d" stroke-width="4"/>
+
+  <!-- Round fluffy body -->
+  <circle cx="64" cy="68" r="42" fill="url(#bodyGradSad)" stroke="#111c2d" stroke-width="4" filter="url(#shadow)"/>
+
+  <!-- Cute floppy ears (drooping down sadly) -->
+  <path d="M26,50 C12,50 14,75 24,75 Z" fill="#93c5fd" stroke="#111c2d" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M102,50 C116,50 114,75 104,75 Z" fill="#93c5fd" stroke="#111c2d" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Sad crying eyes -->
+  <!-- Left Eye -->
+  <path d="M46,64 Q52,60 54,66" stroke="#111c2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Right Eye -->
+  <path d="M74,64 Q76,60 82,66" stroke="#111c2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- Huge blue teardrops falling -->
+  <path d="M46,68 C46,74 50,74 50,68 C50,64 46,68 46,68 Z" fill="#38bdf8" stroke="#111c2d" stroke-width="1.5"/>
+  <path d="M82,68 C82,74 78,74 78,68 C78,64 82,68 82,68 Z" fill="#38bdf8" stroke="#111c2d" stroke-width="1.5"/>
+
+  <!-- Sad downturned mouth -->
+  <path d="M58,80 Q64,74 70,80" stroke="#111c2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- Rosy cheeks -->
+  <circle cx="40" cy="74" r="6" fill="#f43f5e" opacity="0.4"/>
+  <circle cx="88" cy="74" r="6" fill="#f43f5e" opacity="0.4"/>
+
+  <!-- Holding a small pink broken heart -->
+  <g transform="translate(54, 82)">
+    <path d="M10,4 C10,1 6,0 4,2 C2,0 -2,1 -2,4 C-2,8 4,12 4,12 C4,12 10,8 10,4 Z" fill="#fda4af" stroke="#111c2d" stroke-width="2"/>
+    <!-- Crack inside heart -->
+    <path d="M4,2 L3,6 L5,8 L4,11" stroke="#111c2d" stroke-width="1.5" fill="none"/>
+  </g>
+</svg>

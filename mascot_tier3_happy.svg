@@ -1,0 +1,48 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft ground shadow -->
+  <ellipse cx="64" cy="112" rx="42" ry="10" fill="#cbd5e1" opacity="0.8"/>
+  
+  <defs>
+    <!-- Vibrant blue/pink design gradient -->
+    <linearGradient id="bodyGradHappy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    <filter id="shadowHappy">
+      <feDropShadow dx="2" dy="2" stdDeviation="1.5" flood-color="#111c2d" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Cute bouncy feet -->
+  <ellipse cx="44" cy="108" rx="14" ry="9" fill="#db2777" stroke="#111c2d" stroke-width="4"/>
+  <ellipse cx="84" cy="108" rx="14" ry="9" fill="#db2777" stroke="#111c2d" stroke-width="4"/>
+
+  <!-- Round fluffy body -->
+  <circle cx="64" cy="68" r="44" fill="url(#bodyGradHappy)" stroke="#111c2d" stroke-width="4" filter="url(#shadowHappy)"/>
+
+  <!-- Cute fluffy ears sticking out happily -->
+  <path d="M24,44 C10,38 10,64 22,60 Z" fill="#3b82f6" stroke="#111c2d" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M104,44 C118,38 118,64 106,60 Z" fill="#db2777" stroke="#111c2d" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Big joyful sparkling eyes -->
+  <!-- Left Eye -->
+  <circle cx="48" cy="62" r="6" fill="#111c2d"/>
+  <circle cx="46" cy="60" r="2" fill="white"/>
+  <!-- Right Eye -->
+  <circle cx="80" cy="62" r="6" fill="#111c2d"/>
+  <circle cx="78" cy="60" r="2" fill="white"/>
+
+  <!-- Broad smiling mouth -->
+  <path d="M56,74 Q64,84 72,74" stroke="#111c2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- Glowing rosy cheeks -->
+  <circle cx="38" cy="72" r="7" fill="#f43f5e" opacity="0.6"/>
+  <circle cx="90" cy="72" r="7" fill="#f43f5e" opacity="0.6"/>
+
+  <!-- Holding a big beautiful vibrant Red Heart in its hands! -->
+  <g transform="translate(52, 75)">
+    <path d="M12,5 C12,1.5 8,0 6,2.5 C4,0 0,1.5 0,5 C0,9.5 6,14 6,14 C6,14 12,9.5 12,5 Z" fill="#ef4444" stroke="#111c2d" stroke-width="2.5" transform="scale(1.2)" />
+  </g>
+  <ellipse cx="44" cy="85" rx="8" ry="5" fill="#3b82f6" stroke="#111c2d" stroke-width="3"/>
+  <ellipse cx="84" cy="85" rx="8" ry="5" fill="#db2777" stroke="#111c2d" stroke-width="3"/>
+</svg>
