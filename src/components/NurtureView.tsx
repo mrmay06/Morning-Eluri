@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { MessageSquare, Heart, Sparkles, Shield, AlertTriangle, RefreshCw, Send, HelpCircle, Lock, Trophy, Loader2 } from "lucide-react";
 
+// Import custom creature images
+import idealImg from "../../assets/img/Ideal Img.png";
+import tire1Img from "../../assets/img/Tire 1.png";
+import tire2Img from "../../assets/img/Tire 2.png.png";
+import tire3Img from "../../assets/img/Tire 3.png";
+
 interface NurtureViewProps {
   partnerName: string;
   partnerMessage: string;
@@ -28,22 +34,7 @@ export default function NurtureView({
   affectionHearts,
   isAnalyzing = false,
 }: NurtureViewProps) {
-  const [countdownText, setCountdownText] = useState("01:47:23");
   const [speechIndex, setSpeechIndex] = useState(0);
-
-  // Countdown timer simulation ticking down
-  useEffect(() => {
-    let totalSeconds = 1 * 3600 + 47 * 60 + 23;
-    const interval = setInterval(() => {
-      totalSeconds--;
-      if (totalSeconds < 0) totalSeconds = 0;
-      const h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
-      const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
-      const s = (totalSeconds % 60).toString().padStart(2, '0');
-      setCountdownText(`${h}:${m}:${s}`);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Time decay active ticking state
   useEffect(() => {
@@ -62,11 +53,48 @@ export default function NurtureView({
       return {
         speech: "He gave his best morning greeting. Your turn ❤️",
         faceStatus: "😊 Waiting",
-        imgUrl: "/mascot_tier3_happy.svg", // Ideal sitting thing
+        imgUrl: idealImg, // Ideal sitting thing
         imgFilter: "none",
         emojiOverlay: null,
-        heartsCount: 1,
+        heartsCount: 5,
         nervousClass: ""
+      };
+    }
+
+    // Exact Match Overrides
+    if (norm === "good morning") {
+      return {
+        speech: "Is that all...? That's so dry... I'm fading away 💔",
+        faceStatus: "☠️ Gone",
+        imgUrl: tire1Img, // Tombstone
+        imgFilter: "none",
+        emojiOverlay: "💀",
+        heartsCount: 1,
+        nervousClass: "animate-pulse"
+      };
+    }
+
+    if (norm === "good morning to you too!") {
+      return {
+        speech: "Thank you! Still hoping for some extra warmth though... ⏱️",
+        faceStatus: "😟 Weak",
+        imgUrl: tire2Img, // Sad crying mascot
+        imgFilter: "none",
+        emojiOverlay: "💧",
+        heartsCount: 3,
+        nervousClass: "animate-shake"
+      };
+    }
+
+    if (norm === "good morning baby ❤️" || norm === "good morning baby") {
+      return {
+        speech: "Ahhh! Yes! My heart is full of joy and energy! 🥰",
+        faceStatus: "😊 Happy",
+        imgUrl: tire3Img, // Jumping happy mascot
+        imgFilter: "none",
+        emojiOverlay: "🥰",
+        heartsCount: 5,
+        nervousClass: "scale-105"
       };
     }
 
@@ -89,7 +117,7 @@ export default function NurtureView({
       return {
         speech: "Ahhh! Yes! My heart is full of joy and energy! 🥰",
         faceStatus: "😊 Happy",
-        imgUrl: "/mascot_tier3_happy.svg", // With heart
+        imgUrl: tire3Img, // Jumping happy mascot
         imgFilter: "none",
         emojiOverlay: "🥰",
         heartsCount: 5,
@@ -105,7 +133,7 @@ export default function NurtureView({
       return {
         speech: "Is that all...? That's so dry... I'm fading away 💔",
         faceStatus: "☠️ Gone",
-        imgUrl: "/mascot_tier1_gone.svg", // Tombstone
+        imgUrl: tire1Img, // Tombstone
         imgFilter: "none",
         emojiOverlay: "💀",
         heartsCount: 1,
@@ -117,8 +145,8 @@ export default function NurtureView({
     return {
       speech: "Thank you! Still hoping for some extra warmth though... ⏱️",
       faceStatus: "😟 Weak",
-      imgUrl: "/mascot_tier2_sad.svg", // Sad
-      imgFilter: "none", // No filter so gorgeous custom colors are preserved
+      imgUrl: tire2Img, // Sad crying mascot
+      imgFilter: "none",
       emojiOverlay: "💧",
       heartsCount: 3,
       nervousClass: "animate-shake"
@@ -201,18 +229,8 @@ export default function NurtureView({
             src={status.imgUrl}
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              let backupUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCl_1XuydNskBKyTNi4dCJBrig8KMjh6N92vgYULQbJSN_UmrrFihUCCB70DWxBeTCufjAklkTvoSTs56J_3fk3oWbxcouWQnGwy3X2NqGmx9yIiqr63G0mBKQH9CV-FWfn53Z8pmHaL8M7s4UAhmfywKoZrpD3M0re98GeIWYd-_oLETespFAlj_bbgxDsloEKrsE39S-ptHYuztYQ6BjrpvrMKxLaFV0Cf-jS_Skg3j-E-aKXuMTWglkvTsMzEG5iJwrKF1uikmLi"; // Happy / default
-              
-              if (status.imgUrl.includes("gravestone") || status.imgUrl.includes("tier1")) {
-                backupUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCw06KrRa9DHOYVJO-y8kEmMjsKA2kvIiW12WEVzIoTlgvXEhQW57yGnKFXR7NjN2gpra0Rmvlhukl--RtJfkdR3eDu78NUIIvtYr-5W84eNC78kghod0ePL9mBmCgScx7g70ZHuVll9yBxA5IhYeh3i5aDt9QjN3LN5Pk1tFUhlL0sFpLVtscUchzNYT9ljzuO8LTVLbvizinNgEm-Et_IIBQ3wgW18FZQd46SLb9iyJQSWtrZbpLzhHHPWo-nd040crH8-t8KZPN6";
-              } else if (status.imgUrl.includes("sad") || status.imgUrl.includes("tier2") || status.imgUrl.includes("_crying")) {
-                // Fallen back to default, and we apply a subtle gray/weary filter since the local custom sad image wasn't found
-                backupUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCl_1XuydNskBKyTNi4dCJBrig8KMjh6N92vgYULQbJSN_UmrrFihUCCB70DWxBeTCufjAklkTvoSTs56J_3fk3oWbxcouWQnGwy3X2NqGmx9yIiqr63G0mBKQH9CV-FWfn53Z8pmHaL8M7s4UAhmfywKoZrpD3M0re98GeIWYd-_oLETespFAlj_bbgxDsloEKrsE39S-ptHYuztYQ6BjrpvrMKxLaFV0Cf-jS_Skg3j-E-aKXuMTWglkvTsMzEG5iJwrKF1uikmLi";
-                target.style.filter = "grayscale(70%) opacity(80%)";
-              }
-
-              if (target.src !== backupUrl) {
-                target.src = backupUrl;
+              if (target.src !== idealImg) {
+                target.src = idealImg;
               }
             }}
             className={`w-32 h-32 object-contain rounded-full transition-all duration-300 ${status.nervousClass}`}

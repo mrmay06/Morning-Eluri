@@ -38,15 +38,44 @@ function getGeminiClient(): GoogleGenAI | null {
 // Fallback scoring logic when Gemini is disabled or fails
 function getLocalEvaluation(received: string, reply: string) {
   const cleanReceived = received.toLowerCase();
-  const cleanReply = reply.toLowerCase();
+  const cleanReply = reply.trim().toLowerCase();
   
-  if (cleanReply.trim().length === 0) {
+  if (cleanReply.length === 0) {
     return {
       score: 5,
       tier: 1,
       commentary: "An empty silence. That completely drained the creature's soul.",
-      replyReaction: "💀",
+      replyReaction: "I think I am going to DIE",
       verdict: "Gone"
+    };
+  }
+
+  // Exact Match Overrides
+  if (cleanReply === "good morning") {
+    return {
+      score: 15,
+      tier: 1,
+      commentary: "Yikes! That was remarkably dry. The creature collapsed due to affection deficit.",
+      replyReaction: "I think I am going to DIE",
+      verdict: "Gone"
+    };
+  }
+  if (cleanReply === "good morning to you too!") {
+    return {
+      score: 45,
+      tier: 2,
+      commentary: "It's safe, but a bit half-hearted. The creature survived but is still hoping for more emotional vigor.",
+      replyReaction: "Ok! I think this is what i deserve 🥲",
+      verdict: "Weak"
+    };
+  }
+  if (cleanReply === "good morning baby ❤️" || cleanReply === "good morning baby") {
+    return {
+      score: 80,
+      tier: 3,
+      commentary: "Excellent energy match! You sent sweet keywords and a warm tone. The creature feels fully nourished!",
+      replyReaction: "Ahaa! This is what i was waiting for...🥰",
+      verdict: "Fully Healed"
     };
   }
 
@@ -67,6 +96,12 @@ function getLocalEvaluation(received: string, reply: string) {
   if (cleanReply.length > 30) score += 10;
   if (cleanReply.length <= 4) score -= 15;
 
+  // Force explicitly dry phrases to Tier 1 (1 heart)
+  const dryPhrases = ["good morning", "gm", "ok", "fine", "bye", "nothing", "dry", "annoyed", "whatever", "hi", "hello"];
+  if (dryPhrases.includes(cleanReply)) {
+    score = 15;
+  }
+
   // Bound score
   score = Math.max(0, Math.min(100, score));
 
@@ -79,17 +114,17 @@ function getLocalEvaluation(received: string, reply: string) {
     tier = 1;
     verdict = "Gone";
     commentary = "Yikes! That was remarkably dry. The creature collapsed due to affection deficit.";
-    replyReaction = "Wait, is that all...? *cough* 💔";
+    replyReaction = "I think I am going to DIE";
   } else if (score < 60) {
     tier = 2;
     verdict = "Weak";
     commentary = "It's safe, but a bit half-hearted. The creature survived but is still hoping for more emotional vigor.";
-    replyReaction = "I feel like crying 😣";
+    replyReaction = "Ok! I think this is what i deserve 🥲";
   } else if (score < 90) {
     tier = 3;
     verdict = "Fully Healed";
     commentary = "Excellent energy match! You sent sweet keywords and a warm tone. The creature feels fully nourished!";
-    replyReaction = "Ok! I think this is what i deserve 🥲";
+    replyReaction = "Ahaa! This is what i was waiting for...🥰";
   } else {
     tier = 4;
     verdict = "Evolved";
@@ -108,6 +143,36 @@ app.post("/api/evaluate", async (req, res) => {
   }
 
   console.log(`Evaluating reply: "${reply}" for greeting: "${received}"`);
+
+  // Bulletproof API Intercept for exact matches
+  const cleanReply = reply.trim().toLowerCase();
+  if (cleanReply === "good morning") {
+    return res.json({
+      score: 15,
+      tier: 1,
+      commentary: "Yikes! That was remarkably dry. The creature collapsed due to affection deficit.",
+      replyReaction: "I think I am going to DIE",
+      verdict: "Gone"
+    });
+  }
+  if (cleanReply === "good morning to you too!") {
+    return res.json({
+      score: 45,
+      tier: 2,
+      commentary: "It's safe, but a bit half-hearted. The creature survived but is still hoping for more emotional vigor.",
+      replyReaction: "Ok! I think this is what i deserve 🥲",
+      verdict: "Weak"
+    });
+  }
+  if (cleanReply === "good morning baby ❤️" || cleanReply === "good morning baby") {
+    return res.json({
+      score: 80,
+      tier: 3,
+      commentary: "Excellent energy match! You sent sweet keywords and a warm tone. The creature feels fully nourished!",
+      replyReaction: "Ahaa! This is what i was waiting for...🥰",
+      verdict: "Fully Healed"
+    });
+  }
 
   const client = getGeminiClient();
   if (!client) {
@@ -138,9 +203,9 @@ Classify the reply into one of these 4 Tiers:
 - Tier 4: "Evolved" (Legendary/supreme love, top-tier poetic reciprocity. Score of 90-100).
 
 Depending on the evaluated Tier, you MUST strictly set the replyReaction property to one of these exact text choices (do not generate anything else for replyReaction):
-- For Tier 1: "Wait, is that all...? *cough* 💔"
-- For Tier 2: "I feel like crying 😣"
-- For Tier 3: "Ok! I think this is what i deserve 🥲"
+- For Tier 1: "I think I am going to DIE"
+- For Tier 2: "Ok! I think this is what i deserve 🥲"
+- For Tier 3: "Ahaa! This is what i was waiting for...🥰"
 - For Tier 4: "Ahaa! This is what i was waiting for...🥰"
 
 Generate a funny, relationships-insight commentary (joking, playful, tamagotchi doctor diagnostic report style) explaining the evaluation. Keep it under 240 characters.
